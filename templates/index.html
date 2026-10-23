@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Flask & Redis{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="important">Olá Mundo!</h1>
+    <h2>Fui exibido {{ count }} vez(es).</h2>
+    <p>Cor atual: <strong>{{ bg_color }}</strong></p>
+{% endblock %}
