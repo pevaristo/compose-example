@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Olá Mundo - Exemplo Flask & Redis{% endblock %}
+
+{% block content %}
+<div class="space-y-6 text-center">
+  <div class="space-y-2">
+    <h1 class="text-3xl font-extrabold text-indigo-400">Olá Mundo!</h1>
+    <p class="text-slate-300">Fui exibido <span class="text-emerald-400 font-bold text-lg">{{ count }}</span> vez(es).</p>
+    <p class="text-xs text-slate-400 font-mono">Cor atual de fundo gerada: <strong>{{ bg_color }}</strong></p>
+  </div>
+
+  <div class="p-4 bg-slate-950/40 border border-slate-800 rounded-xl text-left text-sm text-slate-300 space-y-2">
+    <p class="font-semibold text-slate-200">Sobre esta página:</p>
+    <p>Esta rota demonstra o uso do <strong>Redis</strong> como cache persistente para contagem de visualizações em containers Docker, além de gerar cores hexadecimais aleatórias a cada requisição.</p>
+  </div>
+
+  <div class="pt-2 flex flex-col gap-3">
+    <a href="/" class="w-full py-3.5 px-6 bg-indigo-600 hover:bg-indigo-500 font-semibold rounded-xl transition duration-150 shadow-lg shadow-indigo-600/30 text-white text-center">
+      🎮 Ir para o Jogo de Adivinhação Binária
+    </a>
+  </div>
+</div>
+{% endblock %}

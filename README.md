@@ -58,7 +58,7 @@ docker compose up --build
 Abra seu navegador e acesse:
 **http://localhost:8000** *(ou a porta definida na variável `APP_PORT` do seu `.env`)*
 
-Cada vez que você atualizar a página, o contador de visualizações aumentará e a cor de fundo mudará aleatoriamente.
+Cada vez que você inicia o jogo, você escolhe uma figura mentalmente e responde se ela aparece nos cartões binários. O sistema adivinha sua figura perfeitamente! Adicionalmente, a rota `/ola` demonstra um exemplo simples de contador de visualizações persistido no Redis.
 
 ---
 
@@ -68,7 +68,7 @@ Aqui estão os principais comandos utilizados no dia a dia com este projeto:
 
 - **Iniciar com modo Watch (Desenvolvimento):**
   ```bash
-  docker compose up --watch
+  docker compose up --build --watch
   ```
   *Monitora alterações nos arquivos locais (como `app.py` ou templates) e atualiza automaticamente o container.*
 
@@ -91,6 +91,12 @@ Aqui estão os principais comandos utilizados no dia a dia com este projeto:
   ```bash
   docker compose down -v
   ```
+  
+- **Executar os testes:**
+  ```bash
+  docker compose exec web pytest
+  ```
+  
 
 - **Verificar a sintaxe e configuração do compose:**
   ```bash

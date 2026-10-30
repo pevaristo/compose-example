@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Como Funciona - Adivinhação Binária{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+  <div class="text-center space-y-2 border-b border-slate-800 pb-4">
+    <span class="text-xs font-semibold uppercase tracking-widest text-indigo-400">Bastidores da Mágica</span>
+    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">Como o Computador Adivinha sua Figura?</h1>
+    <p class="text-sm text-slate-400">Descubra a matemática por trás da lógica binária e dos cartões.</p>
+  </div>
+
+  {% if resultado %}
+  <div class="p-5 bg-indigo-950/40 border border-indigo-500/40 rounded-xl space-y-3">
+    <div class="flex items-center gap-3">
+      <span class="text-4xl">{{ resultado.icone }}</span>
+      <div>
+        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">Sua Escolha na Partida</span>
+        <h2 class="text-xl font-bold text-white">{{ resultado.nome }} (ID: {{ resultado.soma }})</h2>
+      </div>
+    </div>
+    
+    <p class="text-slate-300 text-sm">
+      O computador calculou a sua figura analisando os 4 cartões. Veja exatamente como os bits e os pesos funcionaram para a sua escolha:
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-1">
+      {% for c in resultado.cartoes_detalhes %}
+      <div class="p-3 rounded-lg border text-center {% if c.presente %}bg-emerald-950/40 border-emerald-500/40 text-emerald-300{% else %}bg-slate-900 border-slate-800 text-slate-500{% endif %}">
+        <div class="text-xs font-semibold uppercase">Cartão {{ c.cartao }} (Peso {{ c.peso }})</div>
+        <div class="text-sm font-bold mt-1">{% if c.presente %}Sim (1){% else %}Não (0){% endif %}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="pt-1 text-xs font-mono text-slate-400 space-y-1">
+      <p>• Representação em Bits $[b_3 b_2 b_1 b_0]$: <span class="text-indigo-400 font-bold">{{ resultado.binario }}</span></p>
+      <p>• Soma das potências ativas: <span class="text-emerald-400 font-bold">{{ resultado.pesos.replace(',', ' + ') if resultado.pesos else '0' }} = {{ resultado.soma }}</span></p>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="space-y-4 text-sm text-slate-300 leading-relaxed">
+    <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2">
+      <h2 class="font-bold text-indigo-400 text-base">1. O Sistema Binário e das Potências de 2</h2>
+      <p>
+        O computador não faz nenhuma mágica sobrenatural; ele usa estritamente a matemática do sistema binário. 
+        Cada um dos 4 cartões do jogo representa uma potência de base 2, que chamamos de <strong>peso</strong>:
+      </p>
+      <ul class="list-disc list-inside space-y-1 text-slate-400 pl-2">
+        <li><strong>Cartão 1:</strong> Peso <span class="text-indigo-300 font-mono">1</span> ($2^0$)</li>
+        <li><strong>Cartão 2:</strong> Peso <span class="text-indigo-300 font-mono">2</span> ($2^1$)</li>
+        <li><strong>Cartão 3:</strong> Peso <span class="text-indigo-300 font-mono">4</span> ($2^2$)</li>
+        <li><strong>Cartão 4:</strong> Peso <span class="text-indigo-300 font-mono">8</span> ($2^3$)</li>
+      </ul>
+    </div>
+
+    <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2">
+      <h2 class="font-bold text-indigo-400 text-base">2. A Identidade Secreta das Figuras (IDs de 1 a 15)</h2>
+      <p>
+        Cada figura do catálogo possui um ID numérico secreto de 1 a 15. Em binário, qualquer número entre 1 e 15 pode ser representado pela soma exata desses pesos.
+      </p>
+      <p>
+        Por exemplo, o <strong>Peixe (ID 14)</strong> é formado pela soma: <br>
+        <code class="text-emerald-400 font-bold">14 = 8 + 4 + 2</code> (pesos dos cartões 4, 3 e 2).
+      </p>
+      <p>
+        Isso significa que o Peixe aparecerá <strong>somente</strong> nos cartões de peso 8, 4 e 2, e nunca no cartão de peso 1.
+      </p>
+    </div>
+
+    <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2">
+      <h2 class="font-bold text-indigo-400 text-base">3. Como a Leitura é Feita</h2>
+      <p>
+        Quando você responde "Sim" para um cartão, o computador soma o peso daquele cartão. No final, a soma total resulta exatamente no ID da figura que você memorizou.
+      </p>
+      <p>
+        A representação em bits <code class="text-indigo-400 font-mono">[b₃ b₂ b_1 b_0]</code> mostra quais cartões tiveram resposta "Sim" (1) ou "Não" (0), indo do 4º cartão ($b_3$) até o 1º cartão ($b_0$).
+      </p>
+    </div>
+
+    <div class="p-4 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2">
+      <h2 class="font-bold text-indigo-400 text-base">4. Qual é o papel da Estrela ⭐?</h2>
+      <p>
+        A estrela (ID 15) tem valor binário <code class="text-indigo-400 font-mono">1111</code> ($8 + 4 + 2 + 1$), o que significa que ela aparece em <strong>todos</strong> os cartões. 
+        Ela também é usada estrategicamente para preencher os espaços vazios nos cartões, mantendo sempre o formato visual perfeito de 8 itens por cartão.
+      </p>
+    </div>
+  </div>
+
+  <div class="pt-2 space-y-3">
+    <a href="/" class="block w-full py-3.5 px-6 bg-indigo-600 hover:bg-indigo-500 font-semibold rounded-xl text-center transition duration-150 shadow-lg shadow-indigo-600/30 text-white">
+      ← Voltar para o Jogo
+    </a>
+  </div>
+</div>
+{% endblock %}

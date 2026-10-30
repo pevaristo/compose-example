@@ -1,4 +1,24 @@
+# Ambiente e controle de versão
 .env
-*.pyc
+.git
+.github
+
+# IDEs
+.vscode
+.idea
+
+# Python e Testes
 __pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.coverage
+htmlcov
+
+# Dados persistentes do Docker
 redis-data
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db

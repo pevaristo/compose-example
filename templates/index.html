@@ -1,13 +1,76 @@
-{% extends "base.html" %}
-{% block title %}Flask & Redis{% endblock %}
-{% block head %}
-    {{ super() }}
-    <style type="text/css">
-        .important { color: #336699; }
-    </style>
-{% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}Adivinhação binária{% endblock %}
+
 {% block content %}
-    <h1 class="important">Olá Mundo!</h1>
-    <h2>Fui exibido {{ count }} vez(es).</h2>
-    <p>Cor atual: <strong>{{ bg_color }}</strong></p>
+<!-- ETAPA 1: ESCOLHA DA FIGURA -->
+<section id="step-escolha" class="space-y-6">
+  <div class="text-center space-y-2">
+    <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-indigo-400">Escolha uma figura</h1>
+    <p class="text-sm text-slate-400">Memorize mentalmente uma das figuras abaixo. Não me diga qual é!</p>
+  </div>
+
+  <div id="grid-catalogo" class="grid grid-cols-3 sm:grid-cols-5 gap-3 p-4 bg-slate-950/60 rounded-xl border border-slate-800/80">
+    <!-- Figuras renderizadas via API -->
+  </div>
+
+  <button id="btn-iniciar" class="w-full py-3.5 px-6 bg-indigo-600 hover:bg-indigo-500 font-semibold rounded-xl transition duration-150 shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
+    Já escolhi e memorizei! Continuar
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+  </button>
+</section>
+
+<!-- ETAPA 2: SEQUÊNCIA DE CARTÕES -->
+<section id="step-cartao" class="space-y-6 hidden">
+  <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+    <span id="label-progresso" class="text-xs font-semibold tracking-wider uppercase text-slate-400">Cartão 1 de 4</span>
+    <div class="w-24 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+      <div id="barra-progresso" class="h-full bg-indigo-500 transition-all duration-300 w-1/4"></div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <h2 class="text-xl sm:text-2xl font-bold text-slate-100">Sua figura está neste cartão?</h2>
+  </div>
+
+  <div id="grid-cartao-itens" class="grid grid-cols-4 gap-3 p-4 bg-slate-950/60 rounded-xl border border-slate-800">
+    <!-- 8 figuras do cartão atual inseridas dinamicamente -->
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 pt-2">
+    <button id="btn-nao" class="py-3.5 px-6 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-semibold rounded-xl border border-slate-700/80 transition duration-150">
+      Não está aqui
+    </button>
+    <button id="btn-sim" class="py-3.5 px-6 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold rounded-xl shadow-lg shadow-emerald-600/30 transition duration-150">
+      Sim, está aqui
+    </button>
+  </div>
+</section>
+
+<!-- ETAPA 3: REVELAÇÃO -->
+<section id="step-resultado" class="space-y-6 text-center hidden">
+  <div class="space-y-2">
+    <span class="text-xs font-semibold uppercase tracking-widest text-emerald-400">Mágica concluída</span>
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">A figura que você escolheu foi:</h2>
+  </div>
+
+  <div class="py-6 flex flex-col items-center justify-center gap-3 bg-slate-950/70 border border-emerald-500/30 rounded-2xl p-6">
+    <span id="resultado-icone" class="text-7xl animate-bounce"></span>
+    <span id="resultado-nome" class="text-2xl font-bold tracking-wide text-slate-100"></span>
+  </div>
+
+  <div class="space-y-3 pt-2">
+    <a id="btn-como-funciona" href="/como-funciona" class="block w-full py-3 px-6 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition duration-150 text-center flex items-center justify-center gap-2">
+      🧠 Como o computador descobriu? Entenda a "mágica"
+    </a>
+
+    <button id="btn-reiniciar" class="w-full py-3.5 px-6 bg-indigo-600 hover:bg-indigo-500 font-semibold rounded-xl transition duration-150 shadow-lg shadow-indigo-600/20">
+      Jogar novamente
+    </button>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/game.js') }}"></script>
 {% endblock %}

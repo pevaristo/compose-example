@@ -1,2 +1,5 @@
 flask
+flask_cors
 redis
+pytest
+pytest-flask

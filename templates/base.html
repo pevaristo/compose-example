@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    {% block head %}
-    <title>{% block title %}{% endblock %} usando Docker</title>
-    {% endblock %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Adivinhação binária{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body style="background-color: {{ bg_color }}; transition: background-color 0.1s ease;">
-    <div id="content">{% block content %}{% endblock %}</div>
+<body class="text-slate-100 min-h-screen flex flex-col items-center justify-center p-4" style="background-color: {{ bg_color if bg_color else '#020617' }}; transition: background-color 0.3s ease;">
+
+  <main class="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block scripts %}{% endblock %}
 </body>
 </html>

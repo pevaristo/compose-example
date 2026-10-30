@@ -1,1 +1,23 @@
+# Variáveis de ambiente
 .env
+
+# Cache do Python e Pytest
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Configurações de IDEs (VS Code, PyCharm)
+.vscode/
+.idea/
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# Ambientes Virtuais
+venv/
+.venv/
+ENV/
